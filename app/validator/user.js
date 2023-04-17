@@ -16,8 +16,8 @@ class RegisterValidator extends LinValidator {
     this.password = [
       new Rule(
         'matches',
-        '密码长度必须在6~22位之间，包含字符、数字和 _ ',
-        /^[A-Za-z0-9_*&$#@]{6,22}$/
+        '密码长度必须大于6位，包含字符、数字和 _ ',
+        /^[A-Za-z0-9_*&$#@]{6,}$/
       )
     ];
     this.confirm_password = new Rule('isNotEmpty', '确认密码不可为空');
@@ -100,8 +100,8 @@ class ChangePasswordValidator extends LinValidator {
     super();
     this.new_password = new Rule(
       'matches',
-      '密码长度必须在6~22位之间，包含字符、数字和 _ ',
-      /^[A-Za-z0-9_*&$#@]{6,22}$/
+      '密码长度必须大于6位，包含字符、数字和 _ ',
+      /^[A-Za-z0-9_*&$#@]{6,}$/
     );
     this.confirm_password = new Rule('isNotEmpty', '确认密码不可为空');
     this.old_password = new Rule('isNotEmpty', '请输入旧密码');
