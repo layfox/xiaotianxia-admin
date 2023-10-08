@@ -9,7 +9,8 @@ class Integral extends Model {
       id: this.id,
       userid: this.userid,
       available: this.available,
-      total: this.total
+      total: this.total,
+      username: this.username
     };
     return origin;
   }
@@ -25,6 +26,11 @@ Integral.init(
     userid: {
       type: Sequelize.STRING(100),
       allowNull: false
+    },
+    username: {
+      type: Sequelize.STRING(100),
+      allowNull: false,
+      comment: '用户名，唯一'
     },
     available: {
       type: Sequelize.INTEGER,

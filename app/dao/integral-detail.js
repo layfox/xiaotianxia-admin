@@ -15,6 +15,7 @@ class IntegralDetailDao {
     ch.userid = v.userId;
     ch.type = v.type;
     ch.integral = v.integral;
+    ch.username = v.userName;
     await ch.save();
   }
 }

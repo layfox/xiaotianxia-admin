@@ -1,8 +1,26 @@
 import { NotFound, Forbidden } from 'lin-mizar';
 import { Integral } from '../model/integral';
+import Sequelize from 'sequelize';
 
 class IntegralDao {
-  async getIntegral (userId) {
+  async getIntegral (userName, page, count1) {
+    const condition = {
+      where: {
+        username: {
+          [Sequelize.Op.like]: `%${userName}%`
+        }
+      },
+      offset: page * count1,
+      limit: count1
+    };
+    const { rows, count } = await Integral.findAndCountAll(condition);
+    return {
+      items: rows,
+      total: count
+    };
+  }
+
+  async getIntegralByUserId (userId) {
     const integral = await Integral.findOne({
       where: {
         userid: userId
@@ -26,6 +44,7 @@ class IntegralDao {
     ch.userid = v.userId;
     ch.available = v.available;
     ch.total = v.total;
+    ch.username = v.userName;
     await ch.save();
   }
 

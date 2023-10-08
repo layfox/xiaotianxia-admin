@@ -123,6 +123,12 @@ class UserDao {
   async getInformation (ctx) {
     const user = ctx.currentUser;
 
+    const userInfo = await UserModel.findByPk(+user.id);
+    if (!userInfo) {
+      throw new NotFound({
+        code: 10021
+      });
+    }
     const userGroup = await UserGroupModel.findAll({
       where: {
         user_id: user.id
@@ -137,8 +143,8 @@ class UserDao {
       }
     });
 
-    set(user, 'groups', groups);
-    return user;
+    set(userInfo, 'groups', groups);
+    return userInfo;
   }
 
   async getPermissions (ctx) {
